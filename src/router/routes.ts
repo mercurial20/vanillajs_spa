@@ -1,4 +1,5 @@
 import UserComponent from "../user";
+import UserList from "../user/userList";
 import { IRoute } from "./types";
 
 export const routes: IRoute[] = [
@@ -11,10 +12,7 @@ export const routes: IRoute[] = [
     },
     {
         url: '/users',
-        component: `
-            <h1>Users</h1>
-            <p>Users List</p>
-        `
+        component: UserList
     },
     {
         url: '/user/:id/:name',

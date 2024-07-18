@@ -13,6 +13,7 @@ const UserComponent = (props: IUserProps) => {
       <h1>User Details</h1>
       <p>User Id: ${id}</p>
       <p>User Name: ${name}</p>
+      <a href="#">Back</a>
     `
 }
 
