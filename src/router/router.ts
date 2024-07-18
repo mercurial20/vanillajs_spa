@@ -1,30 +1,19 @@
 import notFound from "./404";
 import { IRoute } from "./types";
+import { extractParams } from "./utils";
 
-const root = document.getElementById('root') as HTMLElement;
-
-function extractParams(url: string, route: IRoute): { [key: string]: string } {
-    const params: { [key: string]: string } = {};
-    const urlParts = url.split('/');
-    const routeParts = route.url.split('/');
-
-    for (let i = 0; i < routeParts.length; i++) {
-        if (routeParts[i].startsWith(':')) {
-            params[routeParts[i].slice(1)] = urlParts[i];
-        }
-    }
-    return params;
-}
 
 export class Router {
     static _instance: Router;
-    constructor(private routes: IRoute[]) {
+    private root;
+    constructor(private routes: IRoute[], root: HTMLElement) {
         if (Router._instance) {
             console.warn('instance already exists')
             return Router._instance;
         }
         Router._instance = this;
         this.routes = routes;
+        this.root = root;
     }
 
     initRouter() {
@@ -48,7 +37,7 @@ export class Router {
         const url = window.location.pathname
         const route = this.mapRoute(url)
 
-        root.innerHTML = this.renderComponent(route);
+        this.root!.innerHTML = this.renderComponent(route);
     }
 
     private renderComponent = (route: IRoute) => {
